@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Market Wire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main>
+  <h1>Market Wire</h1>
+
+  <nav>
+    {% for key, t in topics.items() %}
+      <a href="{{ url_for('index', topic=key) }}"
+         {% if key == topic and not search %}class="active"{% endif %}>{{ t.label }}</a>
+    {% endfor %}
+  </nav>
+
+  <form method="get" action="{{ url_for('index') }}">
+    <input type="search" name="q" value="{{ search }}" placeholder="Search a company, ticker, or topic">
+    <button type="submit">Search</button>
+  </form>
+    {% if errors %}
+    <div class="notice">
+      {% for e in errors %}<p>{{ e }}</p>{% endfor %}
+    </div>
+  {% endif %}
+  
+  {% for a in articles %}
+    <article>
+      <h2><a href="{{ a.url }}" target="_blank" rel="noopener noreferrer">{{ a.title }}</a></h2>
+      <span class="source">{{ a.source }}</span>
+      <span class="time">{{ a.published | timeago }}</span>
+      {% if a.summary %}
+        <p class="summary">{{ a.summary[:220] }}{% if a.summary|length > 220 %}…{% endif %}</p>
+      {% endif %}
+    </article>
+  {% else %}
+    <p class="empty">No articles found. Try a different topic or search term.</p>
+  {% endfor %}
+</main>
+</body>
+</html>
