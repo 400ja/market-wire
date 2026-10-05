@@ -1,5 +1,5 @@
 # Market Wire Project
-A financial news aggregator built with Pyhton and Flask. It pulls articles from NewsAPI and RSS feeds (CNBC, MarketWatch, Yahoo Finance), merges them, removes duplicates, and shows them newest first.
+A financial news aggregator built with Python and Flask. It pulls articles from NewsAPI and RSS feeds (CNBC, MarketWatch, Yahoo Finance), merges them, removes duplicates, and shows them newest first.
 
 # Features
 - 5 different topic tabs (Top business, Markets, Economy, Fintech, Crypto)  and keyword search
